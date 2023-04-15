@@ -1,6 +1,6 @@
 ﻿import crossPath from "../images/cross.svg";
 
-function PopupWithFrom(props) {
+function PopupWithForm(props) {
   const className = props.isOpen
     ? `popup popup_type_${props.name} popup_opened`
     : `popup popup_type_${props.name}`;
@@ -23,4 +23,4 @@ function PopupWithFrom(props) {
   );
 }
 
-export default PopupWithFrom;
+export default PopupWithForm;

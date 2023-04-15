@@ -3,7 +3,7 @@ import { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithFrom from "./PopupWithForm";
+import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
 function App() {
@@ -49,7 +49,7 @@ function App() {
 
       <Footer />
 
-      <PopupWithFrom
+      <PopupWithForm
         title='Редактировать профиль'
         name='person'
         isOpen={isEditProfilePopupOpen}
@@ -78,9 +78,9 @@ function App() {
         <button type='submit' className='popup__button'>
           Сохранить
         </button>
-      </PopupWithFrom>
+      </PopupWithForm>
 
-      <PopupWithFrom
+      <PopupWithForm
         title='Новое место'
         name='add-image'
         isOpen={isAddPlacePopupOpen}
@@ -109,9 +109,9 @@ function App() {
         <button type='submit' className='popup__button'>
           Сохранить
         </button>
-      </PopupWithFrom>
+      </PopupWithForm>
 
-      <PopupWithFrom
+      <PopupWithForm
         title='Обновить аватар'
         name='avatar'
         isOpen={isEditAvatarPopupOpen}
@@ -129,13 +129,13 @@ function App() {
         <button type='submit' className='popup__button'>
           Сохранить
         </button>
-      </PopupWithFrom>
+      </PopupWithForm>
 
-      <PopupWithFrom title='Вы уверены?' name='delete-image'>
+      <PopupWithForm title='Вы уверены?' name='delete-image'>
         <button type='submit' className='popup__button'>
           Да
         </button>
-      </PopupWithFrom>
+      </PopupWithForm>
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </>
