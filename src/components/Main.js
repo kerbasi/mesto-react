@@ -4,30 +4,40 @@ import editPath from "../images/edit.svg";
 import api from "../utils/api";
 import Card from "./Card";
 
-function Main(props) {
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  onClose,
+}) {
   const [userName, setUserName] = useState("");
   const [userDescription, setUserDescription] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api.getUserInfo().then((data) => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar);
-    });
-  }, []);
+    api
+      .getUserInfo()
+      .then((data) => {
+        setUserName(data.name);
+        setUserDescription(data.about);
+        setUserAvatar(data.avatar);
+      })
+      .catch((err) => console.log(err));
 
-  useEffect(() => {
-    api.getInitialCards().then((data) => {
-      setCards(data);
-    });
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
     <main className='main page__main'>
       <section className='profile'>
-        <div className='profile__avatar-wrapper' onClick={props.onEditAvatar}>
+        <div className='profile__avatar-wrapper' onClick={onEditAvatar}>
           <img
             src={userAvatar}
             alt='аватар пользователя'
@@ -39,7 +49,7 @@ function Main(props) {
           <button
             type='button'
             className='profile__edit-button'
-            onClick={props.onEditProfile}
+            onClick={onEditProfile}
           >
             <img
               className='profile__edit-image'
@@ -52,7 +62,7 @@ function Main(props) {
         <button
           type='button'
           className='profile__add-button'
-          onClick={props.onAddPlace}
+          onClick={onAddPlace}
         >
           <img className='profile__add-image' src={plusPath} alt='знак плюс' />
         </button>
@@ -62,8 +72,8 @@ function Main(props) {
           <Card
             key={cardData._id}
             data={cardData}
-            onCardClick={props.onCardClick}
-            onClose={props.onClose}
+            onCardClick={onCardClick}
+            onClose={onClose}
           />
         ))}
       </section>

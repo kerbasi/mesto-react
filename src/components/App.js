@@ -10,7 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState("");
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const handleEditAvatarClick = () => {
     setisEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -32,7 +32,7 @@ function App() {
     setisEditAvatarPopupOpen(false);
     setisEditProfilePopupOpen(false);
     setisAddPlacePopupOpen(false);
-    setSelectedCard("");
+    setSelectedCard(null);
   };
 
   return (
@@ -54,6 +54,7 @@ function App() {
         name='person'
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        buttonText='Сохранить'
       >
         <input
           type='text'
@@ -75,9 +76,6 @@ function App() {
           required
         />
         <span className='person-data-input-error popup__error'></span>
-        <button type='submit' className='popup__button'>
-          Сохранить
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
@@ -85,6 +83,7 @@ function App() {
         name='add-image'
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
+        buttonText='Сохранить'
       >
         <input
           type='text'
@@ -106,9 +105,6 @@ function App() {
           required
         />
         <span className='add-data-input-error popup__error'></span>
-        <button type='submit' className='popup__button'>
-          Сохранить
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
@@ -116,6 +112,7 @@ function App() {
         name='avatar'
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        buttonText='Сохранить'
       >
         <input
           type='url'
@@ -126,9 +123,6 @@ function App() {
           required
         />
         <span className='avatar-data-input-error popup__error'></span>
-        <button type='submit' className='popup__button'>
-          Сохранить
-        </button>
       </PopupWithForm>
 
       <PopupWithForm title='Вы уверены?' name='delete-image'>
@@ -137,7 +131,9 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      {selectedCard && (
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      )}
     </>
   );
 }

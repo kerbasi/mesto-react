@@ -1,17 +1,17 @@
-﻿function Card(props) {
+﻿function Card({ onCardClick, data }) {
   const handleCardClick = () => {
-    props.onCardClick(props.data);
+    onCardClick(data);
   };
 
   return (
     <article className='element'>
       <img
         className='element__image'
-        src={props.data.link}
-        alt={props.data.name}
+        src={data.link}
+        alt={data.name}
         onClick={handleCardClick}
       />
-      <h2 className='element__title'>Изображение</h2>
+      <h2 className='element__title'>{data.name}</h2>
       <div className='element__heart-wrapper'>
         <button className='element__heart-image' type='button'></button>
         <p className='element__heart-counter'></p>
