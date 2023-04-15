@@ -8,4 +8,4 @@
 
 ### Github Pages
 
-Готовый проект можно посмотреть по ссылке - [Github Pages](https://kerbasi.github.io/mesto/)
+Готовый проект можно посмотреть по ссылке - [Github Pages](https://kerbasi.github.io/mesto-react/public/)
