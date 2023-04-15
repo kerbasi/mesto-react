@@ -1,7 +1,7 @@
 ﻿function Footer() {
   return (
-    <footer class='footer page__footer'>
-      <p class='footer__copyright' lang='eu'>
+    <footer className='footer page__footer'>
+      <p className='footer__copyright' lang='eu'>
         © 2023 Mesto Russia
       </p>
     </footer>

@@ -15,7 +15,7 @@ function PopupWithFrom(props) {
           />
         </button>
         <h2 className='popup__title'>{props.title}</h2>
-        <form action='#' className='popup__form' name={props.name} novalidate>
+        <form action='#' className='popup__form' name={props.name} noValidate>
           {props.children}
         </form>
       </div>

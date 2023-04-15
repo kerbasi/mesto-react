@@ -10,6 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState("");
 
   const handleEditAvatarClick = () => {
     setisEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -23,20 +24,27 @@ function App() {
     setisAddPlacePopupOpen(!isAddPlacePopupOpen);
   };
 
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+  };
+
   const closeAllPopups = () => {
     setisEditAvatarPopupOpen(false);
     setisEditProfilePopupOpen(false);
     setisAddPlacePopupOpen(false);
+    setSelectedCard("");
   };
 
   return (
-    <body className='page'>
+    <>
       <Header />
 
       <Main
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
+        onClose={closeAllPopups}
       />
 
       <Footer />
@@ -52,8 +60,8 @@ function App() {
           id='person-title-input'
           className='popup__input popup__input_type_title'
           name='title'
-          minlength='2'
-          maxlength='40'
+          minLength='2'
+          maxLength='40'
           required
         />
         <span className='person-title-input-error popup__error'></span>
@@ -62,8 +70,8 @@ function App() {
           id='person-data-input'
           className='popup__input popup__input_type_data'
           name='data'
-          minlength='2'
-          maxlength='200'
+          minLength='2'
+          maxLength='200'
           required
         />
         <span className='person-data-input-error popup__error'></span>
@@ -84,8 +92,8 @@ function App() {
           className='popup__input popup__input_type_title'
           name='title'
           placeholder='Название'
-          minlength='2'
-          maxlength='30'
+          minLength='2'
+          maxLength='30'
           required
         />
         <span className='add-title-input-error popup__error'></span>
@@ -129,20 +137,8 @@ function App() {
         </button>
       </PopupWithFrom>
 
-      <ImagePopup />
-
-      <template id='element-template'>
-        <article className='element'>
-          <img className='element__image' src='#' alt='#' />
-          <h2 className='element__title'>Изображение</h2>
-          <div className='element__heart-wrapper'>
-            <button className='element__heart-image' type='button'></button>
-            <p className='element__heart-counter'></p>
-          </div>
-          <button className='element__trash-image' type='button'></button>
-        </article>
-      </template>
-    </body>
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+    </>
   );
 }
 
