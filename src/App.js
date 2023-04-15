@@ -1,14 +1,10 @@
-import "./App.css";
+import logoPath from "./images/logo.svg";
 
 function App() {
   return (
     <body class='page'>
       <header class='header page__header'>
-        <img
-          src="<%=require('./images/logo.svg')%>"
-          alt='лого место'
-          class='header__logo'
-        />
+        <img src={logoPath} alt='лого место' class='header__logo' />
       </header>
       <main class='main page__main'>
         <section class='profile'>
