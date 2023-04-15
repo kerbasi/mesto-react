@@ -1,47 +1,20 @@
-import logoPath from "./images/logo.svg";
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import crossPath from "../images/cross.svg";
 
 function App() {
   return (
     <body class='page'>
-      <header class='header page__header'>
-        <img src={logoPath} alt='лого место' class='header__logo' />
-      </header>
-      <main class='main page__main'>
-        <section class='profile'>
-          <div class='profile__avatar-wrapper'>
-            <img src='#' alt='аватар пользователя' class='profile__avatar' />
-          </div>
-          <div class='profile__info'>
-            <h1 class='profile__info-title'></h1>
-            <button type='button' class='profile__edit-button'>
-              <img
-                class='profile__edit-image'
-                src="<%=require('./images/edit.svg')%>"
-                alt='знак карандаша'
-              />
-            </button>
-            <p class='profile__info-subtitle'></p>
-          </div>
-          <button type='button' class='profile__add-button'>
-            <img
-              class='profile__add-image'
-              src="<%=require('./images/plus.svg')%>"
-              alt='знак плюс'
-            />
-          </button>
-        </section>
-        <section class='elements main__elements'></section>
-      </main>
-      <footer class='footer page__footer'>
-        <p class='footer__copyright' lang='eu'>
-          © 2023 Mesto Russia
-        </p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />
+
       <div class='popup popup_type_person'>
         <div class='popup__container'>
           <button type='reset' class='popup__cross'>
             <img
-              src="<%=require('./images/cross.svg')%>"
+              src={crossPath}
               alt='иконка крестика'
               class='popup__cross-image'
             />
@@ -78,7 +51,7 @@ function App() {
         <div class='popup__container'>
           <button type='reset' class='popup__cross'>
             <img
-              src="<%=require('./images/cross.svg')%>"
+              src={crossPath}
               alt='иконка крестика'
               class='popup__cross-image'
             />
@@ -115,7 +88,7 @@ function App() {
         <div class='popup__container popup__container_type_avatar'>
           <button type='reset' class='popup__cross'>
             <img
-              src="<%=require('./images/cross.svg')%>"
+              src={crossPath}
               alt='иконка крестика'
               class='popup__cross-image'
             />
@@ -141,7 +114,7 @@ function App() {
         <div class='popup__container popup__container_type_image'>
           <button type='reset' class='popup__cross'>
             <img
-              src="<%=require('./images/cross.svg')%>"
+              src={crossPath}
               alt='иконка крестика'
               class='popup__cross-image'
             />
@@ -154,7 +127,7 @@ function App() {
         <div class='popup__container popup__container_type_submit'>
           <button type='reset' class='popup__cross'>
             <img
-              src="<%=require('./images/cross.svg')%>"
+              src={crossPath}
               alt='иконка крестика'
               class='popup__cross-image'
             />
