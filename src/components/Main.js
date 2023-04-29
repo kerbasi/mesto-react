@@ -1,4 +1,5 @@
-﻿import { useState, useEffect } from "react";
+﻿import { useState, useEffect, useContext } from "react";
+import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import plusPath from "../images/plus.svg";
 import editPath from "../images/edit.svg";
 import api from "../utils/api";
@@ -11,21 +12,10 @@ function Main({
   onCardClick,
   onClose,
 }) {
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
   const [cards, setCards] = useState([]);
+  const { name, about, avatar } = useContext(CurrentUserContext);
 
   useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => {
-        setUserName(data.name);
-        setUserDescription(data.about);
-        setUserAvatar(data.avatar);
-      })
-      .catch((err) => console.log(err));
-
     api
       .getInitialCards()
       .then((data) => {
@@ -39,13 +29,13 @@ function Main({
       <section className='profile'>
         <div className='profile__avatar-wrapper' onClick={onEditAvatar}>
           <img
-            src={userAvatar}
+            src={avatar}
             alt='аватар пользователя'
             className='profile__avatar'
           />
         </div>
         <div className='profile__info'>
-          <h1 className='profile__info-title'>{userName}</h1>
+          <h1 className='profile__info-title'>{name}</h1>
           <button
             type='button'
             className='profile__edit-button'
@@ -57,7 +47,7 @@ function Main({
               alt='знак карандаша'
             />
           </button>
-          <p className='profile__info-subtitle'>{userDescription}</p>
+          <p className='profile__info-subtitle'>{about}</p>
         </div>
         <button
           type='button'
