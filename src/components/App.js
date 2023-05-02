@@ -7,6 +7,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../components/contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = useState(false);
@@ -86,34 +87,12 @@ function App() {
 
       <Footer />
 
-      <PopupWithForm
-        title='Редактировать профиль'
-        name='person'
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-        buttonText='Сохранить'
-      >
-        <input
-          type='text'
-          id='person-title-input'
-          className='popup__input popup__input_type_title'
-          name='title'
-          minLength='2'
-          maxLength='40'
-          required
+      {currentUser && (
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
         />
-        <span className='person-title-input-error popup__error'></span>
-        <input
-          type='text'
-          id='person-data-input'
-          className='popup__input popup__input_type_data'
-          name='data'
-          minLength='2'
-          maxLength='200'
-          required
-        />
-        <span className='person-data-input-error popup__error'></span>
-      </PopupWithForm>
+      )}
 
       <PopupWithForm
         title='Новое место'
