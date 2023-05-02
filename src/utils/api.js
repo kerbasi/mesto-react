@@ -66,6 +66,13 @@
     }).then((res) => this._getResponseData(res));
   }
 
+  changeLikeCardStatus(_id, isLiked) {
+    if (isLiked) {
+      return this.removeLike(_id);
+    }
+    return this.addLike(_id);
+  }
+
   editAvatar(avatar) {
     return fetch(`${this._baseUrl}users/me/avatar`, {
       method: "PATCH",

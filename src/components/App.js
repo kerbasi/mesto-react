@@ -14,6 +14,7 @@ function App() {
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     api
@@ -22,7 +23,13 @@ function App() {
         setCurrentUser(data);
       })
       .catch((err) => console.log(err));
-  });
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleEditAvatarClick = () => {
     setisEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -52,11 +59,14 @@ function App() {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
     });
   };
 
+  const handleCardDelete = (card) => {
+    api.deleteCard(card._id).then((cards) => console.log(cards));
+  };
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
@@ -68,6 +78,9 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
           onClose={closeAllPopups}
+          onCardLike={handleCardLike}
+          cards={cards}
+          onCardDelete={handleCardDelete}
         />
       )}
 

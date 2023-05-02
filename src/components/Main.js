@@ -2,7 +2,6 @@
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import plusPath from "../images/plus.svg";
 import editPath from "../images/edit.svg";
-import api from "../utils/api";
 import Card from "./Card";
 
 function Main({
@@ -11,18 +10,11 @@ function Main({
   onAddPlace,
   onCardClick,
   onClose,
+  onCardLike,
+  cards,
+  onCardDelete,
 }) {
-  const [cards, setCards] = useState([]);
   const { name, about, avatar } = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
 
   return (
     <main className='main page__main'>
@@ -64,6 +56,8 @@ function Main({
             data={cardData}
             onCardClick={onCardClick}
             onClose={onClose}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
           />
         ))}
       </section>
