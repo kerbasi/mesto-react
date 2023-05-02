@@ -1,6 +1,14 @@
 ﻿import crossPath from "../images/cross.svg";
 
-function PopupWithForm({ title, name, isOpen, onClose, children, buttonText }) {
+function PopupWithForm({
+  title,
+  name,
+  isOpen,
+  onClose,
+  children,
+  buttonText,
+  onSubmit,
+}) {
   const className = isOpen
     ? `popup popup_type_${name} popup_opened`
     : `popup popup_type_${name}`;
@@ -15,7 +23,13 @@ function PopupWithForm({ title, name, isOpen, onClose, children, buttonText }) {
           />
         </button>
         <h2 className='popup__title'>{title}</h2>
-        <form action='#' className='popup__form' name={name} noValidate>
+        <form
+          action='#'
+          className='popup__form'
+          name={name}
+          noValidate
+          onSubmit={onSubmit}
+        >
           {children}
           <button type='submit' className='popup__button'>
             {buttonText}

@@ -68,6 +68,15 @@ function App() {
   const handleCardDelete = (card) => {
     api.deleteCard(card._id).then((cards) => console.log(cards));
   };
+
+  const handleUpdateUser = ({ name, about }) => {
+    api.setUserInfo({ title: name, data: about }).then((user) => {
+      console.log(user);
+      setCurrentUser(user);
+      closeAllPopups();
+    });
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
@@ -91,6 +100,7 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
         />
       )}
 
