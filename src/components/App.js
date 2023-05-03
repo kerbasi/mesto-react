@@ -70,23 +70,26 @@ function App() {
     });
   };
 
-  const handleUpdateUser = ({ name, about }) => {
+  const handleUpdateUser = ({ name, about }, setButtonText) => {
     api.setUserInfo({ title: name, data: about }).then((user) => {
       setCurrentUser(user);
+      setButtonText("Сохранить");
       closeAllPopups();
     });
   };
 
-  const handleUpdateAvatar = ({ avatar }) => {
+  const handleUpdateAvatar = ({ avatar }, setButtonText) => {
     api.editAvatar(avatar).then((user) => {
       setCurrentUser(user);
+      setButtonText("Сохранить");
       closeAllPopups();
     });
   };
 
-  const handleAddPlaceSubmit = ({ name, link }) => {
+  const handleAddPlaceSubmit = ({ name, link }, setButtonText) => {
     api.setCard({ name, link }).then((newCard) => {
       setCards((prev) => [...prev, newCard]);
+      setButtonText("Сохранить");
       closeAllPopups();
     });
   };

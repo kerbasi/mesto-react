@@ -1,15 +1,22 @@
 ﻿import PopupWithForm from "./PopupWithForm";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const nameInputRef = useRef();
   const linkInputRef = useRef();
+  const [buttonText, setButtonText] = useState("Сохранить");
   function handleSubmit(e) {
     e.preventDefault();
-    onAddPlace({
-      name: nameInputRef.current.value,
-      link: linkInputRef.current.value,
-    });
+    setButtonText("Сохранение...");
+    onAddPlace(
+      {
+        name: nameInputRef.current.value,
+        link: linkInputRef.current.value,
+      },
+      (text) => {
+        setButtonText(text);
+      }
+    );
   }
   return (
     <PopupWithForm
@@ -17,7 +24,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       name='add-image'
       isOpen={isOpen}
       onClose={onClose}
-      buttonText='Сохранить'
+      buttonText={buttonText}
       onSubmit={handleSubmit}
     >
       <input
