@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useContext } from "react";
+﻿import { useContext } from "react";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import plusPath from "../images/plus.svg";
 import editPath from "../images/edit.svg";

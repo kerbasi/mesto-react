@@ -8,6 +8,8 @@ import ImagePopup from "./ImagePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../components/contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = useState(false);
@@ -56,10 +58,7 @@ function App() {
   };
 
   const handleCardLike = (card) => {
-    // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-    // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
     });
@@ -71,8 +70,21 @@ function App() {
 
   const handleUpdateUser = ({ name, about }) => {
     api.setUserInfo({ title: name, data: about }).then((user) => {
-      console.log(user);
       setCurrentUser(user);
+      closeAllPopups();
+    });
+  };
+
+  const handleUpdateAvatar = ({ avatar }) => {
+    api.editAvatar(avatar).then((user) => {
+      setCurrentUser(user);
+      closeAllPopups();
+    });
+  };
+
+  const handleAddPlaceSubmit = ({ name, link }) => {
+    api.setCard({ name, link }).then((newCard) => {
+      setCards((prev) => [...prev, newCard]);
       closeAllPopups();
     });
   };
@@ -104,52 +116,17 @@ function App() {
         />
       )}
 
-      <PopupWithForm
-        title='Новое место'
-        name='add-image'
+      <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
-        buttonText='Сохранить'
-      >
-        <input
-          type='text'
-          id='add-title-input'
-          className='popup__input popup__input_type_title'
-          name='title'
-          placeholder='Название'
-          minLength='2'
-          maxLength='30'
-          required
-        />
-        <span className='add-title-input-error popup__error'></span>
-        <input
-          type='url'
-          id='add-data-input'
-          className='popup__input popup__input_type_data'
-          name='data'
-          placeholder='Ссылка на картинку'
-          required
-        />
-        <span className='add-data-input-error popup__error'></span>
-      </PopupWithForm>
+        onAddPlace={handleAddPlaceSubmit}
+      />
 
-      <PopupWithForm
-        title='Обновить аватар'
-        name='avatar'
+      <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
-        buttonText='Сохранить'
-      >
-        <input
-          type='url'
-          id='avatar-data-input'
-          className='popup__input popup__input_type_data'
-          name='data'
-          placeholder='Ссылка на картинку'
-          required
-        />
-        <span className='avatar-data-input-error popup__error'></span>
-      </PopupWithForm>
+        onUpdateAvatar={handleUpdateAvatar}
+      />
 
       <PopupWithForm title='Вы уверены?' name='delete-image'>
         <button type='submit' className='popup__button'>
