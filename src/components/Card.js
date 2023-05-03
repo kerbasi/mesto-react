@@ -23,6 +23,10 @@ function Card({ onCardClick, data, onCardLike, onCardDelete }) {
     isLiked && "element__heart-image_active"
   }`;
 
+  const cardDeleteButtonClassName = `element__trash-image ${
+    isOwn && "element__trash-image_visible"
+  }`;
+
   return (
     <article className='element'>
       <img
@@ -42,7 +46,7 @@ function Card({ onCardClick, data, onCardLike, onCardDelete }) {
       </div>
       {isOwn && (
         <button
-          className='element__trash-image'
+          className={cardDeleteButtonClassName}
           type='button'
           onClick={handleDeleteClick}
         ></button>

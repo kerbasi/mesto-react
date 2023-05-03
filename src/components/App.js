@@ -65,7 +65,9 @@ function App() {
   };
 
   const handleCardDelete = (card) => {
-    api.deleteCard(card._id).then((cards) => console.log(cards));
+    api.deleteCard(card._id).then(() => {
+      setCards((prev) => prev.filter((c) => c._id !== card._id));
+    });
   };
 
   const handleUpdateUser = ({ name, about }) => {
