@@ -1,5 +1,5 @@
 ﻿import PopupWithForm from "./PopupWithForm";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const nameInputRef = useRef();
@@ -18,6 +18,12 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       }
     );
   }
+
+  useEffect(() => {
+    nameInputRef.current.value = "";
+    linkInputRef.current.value = "";
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       title='Новое место'

@@ -1,5 +1,5 @@
 ﻿import PopupWithForm from "./PopupWithForm";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const [buttonText, setButtonText] = useState("Сохранить");
@@ -15,6 +15,10 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       }
     );
   }
+
+  useEffect(() => {
+    inputRef.current.value = "";
+  }, [isOpen]);
 
   const inputRef = useRef();
 
