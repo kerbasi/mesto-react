@@ -1,19 +1,19 @@
 ﻿import PopupWithForm from "./PopupWithForm";
 import { useState, useEffect } from "react";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const [inputsValues, setInputsValues] = useState({ title: "", data: "" });
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
   const [buttonText, setButtonText] = useState("Сохранить");
-  function handleChange(e) {
-    setInputsValues({ ...inputsValues, [e.target.name]: e.target.value });
-  }
+
   function handleSubmit(e) {
     e.preventDefault();
     setButtonText("Сохранение...");
     onAddPlace(
       {
-        name: inputsValues.title,
-        link: inputsValues.data,
+        name: values.title,
+        link: values.data,
       },
       () => {
         setButtonText("Сохранить");
@@ -22,7 +22,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   }
 
   useEffect(() => {
-    setInputsValues({ title: "", data: "" });
+    setValues({ title: "", data: "" });
   }, [isOpen]);
 
   return (
@@ -33,6 +33,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       onClose={onClose}
       buttonText={buttonText}
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <input
         type='text'
@@ -44,9 +45,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         maxLength='30'
         required
         onChange={handleChange}
-        value={inputsValues.title}
+        value={values.title ?? ""}
       />
-      <span className='add-title-input-error popup__error'></span>
+      <span className='add-title-input-error popup__error'>{errors.title}</span>
       <input
         type='url'
         id='add-data-input'
@@ -55,9 +56,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         placeholder='Ссылка на картинку'
         required
         onChange={handleChange}
-        value={inputsValues.data}
+        value={values.data ?? ""}
       />
-      <span className='add-data-input-error popup__error'></span>
+      <span className='add-data-input-error popup__error'>{errors.data}</span>
     </PopupWithForm>
   );
 }

@@ -30,6 +30,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       onClose={onClose}
       buttonText={buttonText}
       onSubmit={handleSubmit}
+      isValid={true}
     >
       <input
         ref={inputRef}

@@ -1,5 +1,5 @@
 ﻿import PopupWithForm from "./PopupWithForm";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
@@ -23,8 +23,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       },
       () => {
         setButtonText("Сохранить");
-      },
-      resetForm
+      }
     );
   };
 
@@ -46,7 +45,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         minLength='2'
         maxLength='40'
         required
-        value={values.title}
+        value={values.title ?? ""}
         onChange={handleChange}
       />
       <span className='person-title-input-error popup__error'>
@@ -60,7 +59,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         minLength='2'
         maxLength='200'
         required
-        value={values.data}
+        value={values.data ?? ""}
         onChange={handleChange}
       />
       <span className='person-data-input-error popup__error'>

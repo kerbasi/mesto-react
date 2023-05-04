@@ -1,6 +1,5 @@
 ﻿import crossPath from "../images/cross.svg";
 import { useRef } from "react";
-// import FormValidator, { options } from "../utils/FormValidator";
 
 function PopupWithForm({
   title,
