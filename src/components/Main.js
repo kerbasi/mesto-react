@@ -1,5 +1,5 @@
 ﻿import { useContext } from "react";
-import { CurrentUserContext } from "./contexts/CurrentUserContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import plusPath from "../images/plus.svg";
 import editPath from "../images/edit.svg";
 import Card from "./Card";
