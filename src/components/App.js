@@ -21,6 +21,26 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [cards, setCards] = useState([]);
 
+  const isOpen =
+    isEditAvatarPopupOpen ||
+    isEditProfilePopupOpen ||
+    isAddPlacePopupOpen ||
+    selectedCard;
+
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if (evt.key === "Escape") {
+        closeAllPopups();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("keydown", closeByEscape);
+      return () => {
+        document.removeEventListener("keydown", closeByEscape);
+      };
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     api
       .getUserInfo()
@@ -82,10 +102,12 @@ function App() {
       .deleteCard(card._id)
       .then(() => {
         setCards((prev) => prev.filter((c) => c._id !== card._id));
-        setButtonText();
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setButtonText();
+      });
   };
 
   const handleUpdateUser = ({ name, about }, setButtonText) => {
@@ -93,10 +115,12 @@ function App() {
       .setUserInfo({ title: name, data: about })
       .then((user) => {
         setCurrentUser(user);
-        setButtonText();
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setButtonText();
+      });
   };
 
   const handleUpdateAvatar = ({ avatar }, setButtonText) => {
@@ -104,10 +128,12 @@ function App() {
       .editAvatar(avatar)
       .then((user) => {
         setCurrentUser(user);
-        setButtonText();
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setButtonText();
+      });
   };
 
   const handleAddPlaceSubmit = ({ name, link }, setButtonText) => {
@@ -115,10 +141,12 @@ function App() {
       .setCard({ name, link })
       .then((newCard) => {
         setCards((prev) => [newCard, ...prev]);
-        setButtonText();
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setButtonText();
+      });
   };
 
   return (
@@ -168,9 +196,7 @@ function App() {
           />
         </>
       )}
-      {selectedCard && (
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-      )}
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>
   );
 }

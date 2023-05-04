@@ -19,8 +19,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     setButtonText("Сохранение...");
     onUpdateUser(
       {
-        name,
-        about: description,
+        name: inputsValues.title,
+        about: inputsValues.data,
       },
       () => {
         setButtonText("Сохранить");
@@ -45,8 +45,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         minLength='2'
         maxLength='40'
         required
-        value={name}
-        onChange={handleNameChange}
+        value={inputsValues.title}
+        onChange={handleChange}
       />
       <span className='person-title-input-error popup__error'></span>
       <input
@@ -57,8 +57,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         minLength='2'
         maxLength='200'
         required
-        value={description}
-        onChange={handleDescriptionChange}
+        value={inputsValues.data}
+        onChange={handleChange}
       />
       <span className='person-data-input-error popup__error'></span>
     </PopupWithForm>

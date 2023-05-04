@@ -1,8 +1,9 @@
 ﻿import crossPath from "../images/cross.svg";
 
 function ImagePopup({ card, onClose }) {
+  const className = `popup popup_type_image ${card ? "popup_opened" : ""}`;
   return (
-    <div className='popup popup_type_image popup_opened'>
+    <div className={className}>
       <div className='popup__container popup__container_type_image'>
         <button type='reset' className='popup__cross'>
           <img
@@ -17,7 +18,9 @@ function ImagePopup({ card, onClose }) {
           src={card ? card.link : "#"}
           alt='увеличенное изображение'
         />
-        <h2 className='popup__title popup__title_type_image'>{card.name}</h2>
+        <h2 className='popup__title popup__title_type_image'>
+          {card ? card.name : ""}
+        </h2>
       </div>
     </div>
   );

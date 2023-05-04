@@ -42,7 +42,7 @@ function Card({ onCardClick, data, onCardLike, onCardDelete }) {
           type='button'
           onClick={handleLikeClick}
         ></button>
-        <p className='element__heart-counter'></p>
+        <p className='element__heart-counter'>{data.likes.length}</p>
       </div>
       {isOwn && (
         <button
