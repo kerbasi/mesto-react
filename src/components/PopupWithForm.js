@@ -1,5 +1,6 @@
 ﻿import crossPath from "../images/cross.svg";
 import { useRef } from "react";
+import { usePopupClose } from "../hooks/usePopupClose";
 
 function PopupWithForm({
   title,
@@ -23,6 +24,9 @@ function PopupWithForm({
   const buttonClassName = `popup__button ${
     !isValid ? "popup__button_disabled" : ""
   }`;
+
+  usePopupClose(isOpen, onClose);
+
   return (
     <div className={popupClassName}>
       <div className={containerClassName}>

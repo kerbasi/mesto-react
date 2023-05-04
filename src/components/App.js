@@ -28,20 +28,6 @@ function App() {
     selectedCard;
 
   useEffect(() => {
-    function closeByEscape(evt) {
-      if (evt.key === "Escape") {
-        closeAllPopups();
-      }
-    }
-    if (isOpen) {
-      document.addEventListener("keydown", closeByEscape);
-      return () => {
-        document.removeEventListener("keydown", closeByEscape);
-      };
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
     api
       .getUserInfo()
       .then((data) => {
