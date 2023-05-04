@@ -67,41 +67,58 @@ function App() {
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleCardDelete = (card, setButtonText) => {
-    api.deleteCard(card._id).then(() => {
-      setCards((prev) => prev.filter((c) => c._id !== card._id));
-      setButtonText("Да");
-      closeAllPopups();
-    });
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((prev) => prev.filter((c) => c._id !== card._id));
+        setButtonText();
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleUpdateUser = ({ name, about }, setButtonText) => {
-    api.setUserInfo({ title: name, data: about }).then((user) => {
-      setCurrentUser(user);
-      setButtonText("Сохранить");
-      closeAllPopups();
-    });
+    api
+      .setUserInfo({ title: name, data: about })
+      .then((user) => {
+        setCurrentUser(user);
+        setButtonText();
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleUpdateAvatar = ({ avatar }, setButtonText) => {
-    api.editAvatar(avatar).then((user) => {
-      setCurrentUser(user);
-      setButtonText("Сохранить");
-      closeAllPopups();
-    });
+    api
+      .editAvatar(avatar)
+      .then((user) => {
+        setCurrentUser(user);
+        setButtonText();
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleAddPlaceSubmit = ({ name, link }, setButtonText) => {
-    api.setCard({ name, link }).then((newCard) => {
-      setCards((prev) => [newCard, ...prev]);
-      setButtonText("Сохранить");
-      closeAllPopups();
-    });
+    api
+      .setCard({ name, link })
+      .then((newCard) => {
+        setCards((prev) => [newCard, ...prev]);
+        setButtonText();
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

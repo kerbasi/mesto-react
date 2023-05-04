@@ -10,8 +10,8 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       {
         avatar: inputRef.current.value,
       },
-      (text) => {
-        setButtonText(text);
+      () => {
+        setButtonText("Сохранить");
       }
     );
   }

@@ -6,8 +6,8 @@ function DeleteCardPopup({ isOpen, onClose, onCardDelete, deletedCard }) {
   function handleSubmit(e) {
     e.preventDefault();
     setButtonText("Удаление...");
-    onCardDelete(deletedCard, (text) => {
-      setButtonText(text);
+    onCardDelete(deletedCard, () => {
+      setButtonText("Да");
     });
   }
   return (

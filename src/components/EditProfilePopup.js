@@ -5,15 +5,13 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
   const [buttonText, setButtonText] = useState("Сохранить");
-  const [name, setName] = useState(currentUser.name);
-  const [description, setDescription] = useState(currentUser.about);
+  const [inputsValues, setInputsValues] = useState({
+    title: currentUser.name,
+    data: currentUser.about,
+  });
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
+  const handleChange = (e) => {
+    setInputsValues({ ...inputsValues, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
@@ -24,8 +22,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         name,
         about: description,
       },
-      (text) => {
-        setButtonText(text);
+      () => {
+        setButtonText("Сохранить");
       }
     );
   };

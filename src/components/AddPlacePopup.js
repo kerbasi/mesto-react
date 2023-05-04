@@ -1,27 +1,28 @@
 ﻿import PopupWithForm from "./PopupWithForm";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const nameInputRef = useRef();
-  const linkInputRef = useRef();
+  const [inputsValues, setInputsValues] = useState({ title: "", data: "" });
   const [buttonText, setButtonText] = useState("Сохранить");
+  function handleChange(e) {
+    setInputsValues({ ...inputsValues, [e.target.name]: e.target.value });
+  }
   function handleSubmit(e) {
     e.preventDefault();
     setButtonText("Сохранение...");
     onAddPlace(
       {
-        name: nameInputRef.current.value,
-        link: linkInputRef.current.value,
+        name: inputsValues.title,
+        link: inputsValues.data,
       },
-      (text) => {
-        setButtonText(text);
+      () => {
+        setButtonText("Сохранить");
       }
     );
   }
 
   useEffect(() => {
-    nameInputRef.current.value = "";
-    linkInputRef.current.value = "";
+    setInputsValues({ title: "", data: "" });
   }, [isOpen]);
 
   return (
@@ -34,7 +35,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       onSubmit={handleSubmit}
     >
       <input
-        ref={nameInputRef}
         type='text'
         id='add-title-input'
         className='popup__input popup__input_type_title'
@@ -43,16 +43,19 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         minLength='2'
         maxLength='30'
         required
+        onChange={handleChange}
+        value={inputsValues.title}
       />
       <span className='add-title-input-error popup__error'></span>
       <input
-        ref={linkInputRef}
         type='url'
         id='add-data-input'
         className='popup__input popup__input_type_data'
         name='data'
         placeholder='Ссылка на картинку'
         required
+        onChange={handleChange}
+        value={inputsValues.data}
       />
       <span className='add-data-input-error popup__error'></span>
     </PopupWithForm>
