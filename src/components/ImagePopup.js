@@ -16,7 +16,7 @@ function ImagePopup({ card, onClose }) {
         <img
           className='popup__image'
           src={card ? card.link : "#"}
-          alt='увеличенное изображение'
+          alt={card ? card.name : "увеличенное изображение"}
         />
         <h2 className='popup__title popup__title_type_image'>
           {card ? card.name : ""}
