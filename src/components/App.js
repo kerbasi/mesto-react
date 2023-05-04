@@ -110,7 +110,7 @@ function App() {
       });
   };
 
-  const handleUpdateUser = ({ name, about }, setButtonText) => {
+  const handleUpdateUser = ({ name, about }, setButtonText, resetForm) => {
     api
       .setUserInfo({ title: name, data: about })
       .then((user) => {
@@ -120,6 +120,7 @@ function App() {
       .catch((err) => console.log(err))
       .finally(() => {
         setButtonText();
+        resetForm();
       });
   };
 
@@ -175,7 +176,7 @@ function App() {
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
           />
-
+          {/* 
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
@@ -193,7 +194,7 @@ function App() {
             onClose={closeAllPopups}
             onCardDelete={handleCardDelete}
             deletedCard={deletedCard}
-          />
+          /> */}
         </>
       )}
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />

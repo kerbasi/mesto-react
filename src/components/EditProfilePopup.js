@@ -1,30 +1,30 @@
 ﻿import PopupWithForm from "./PopupWithForm";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
   const [buttonText, setButtonText] = useState("Сохранить");
-  const [inputsValues, setInputsValues] = useState({
-    title: currentUser.name,
-    data: currentUser.about,
-  });
 
-  const handleChange = (e) => {
-    setInputsValues({ ...inputsValues, [e.target.name]: e.target.value });
-  };
+  useEffect(() => {
+    setValues({ title: currentUser.name, data: currentUser.about });
+  }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setButtonText("Сохранение...");
     onUpdateUser(
       {
-        name: inputsValues.title,
-        about: inputsValues.data,
+        name: values.title,
+        about: values.data,
       },
       () => {
         setButtonText("Сохранить");
-      }
+      },
+      resetForm
     );
   };
 
@@ -36,6 +36,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       onClose={onClose}
       buttonText={buttonText}
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <input
         type='text'
@@ -45,10 +46,12 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         minLength='2'
         maxLength='40'
         required
-        value={inputsValues.title}
+        value={values.title}
         onChange={handleChange}
       />
-      <span className='person-title-input-error popup__error'></span>
+      <span className='person-title-input-error popup__error'>
+        {errors.title}
+      </span>
       <input
         type='text'
         id='person-data-input'
@@ -57,10 +60,12 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         minLength='2'
         maxLength='200'
         required
-        value={inputsValues.data}
+        value={values.data}
         onChange={handleChange}
       />
-      <span className='person-data-input-error popup__error'></span>
+      <span className='person-data-input-error popup__error'>
+        {errors.data}
+      </span>
     </PopupWithForm>
   );
 }

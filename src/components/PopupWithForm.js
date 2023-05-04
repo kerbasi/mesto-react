@@ -1,6 +1,6 @@
 ﻿import crossPath from "../images/cross.svg";
 import { useRef } from "react";
-import FormValidator, { options } from "../utils/FormValidator";
+// import FormValidator, { options } from "../utils/FormValidator";
 
 function PopupWithForm({
   title,
@@ -10,6 +10,7 @@ function PopupWithForm({
   children,
   buttonText,
   onSubmit,
+  isValid,
 }) {
   const formRef = useRef();
   const popupClassName = isOpen
@@ -19,12 +20,10 @@ function PopupWithForm({
     name === "delete-image"
       ? `popup__container popup__container_type_submit`
       : `popup__container`;
-  let validation;
-  if (formRef.current) {
-    validation = new FormValidator(options, formRef.current);
-    validation.enableValidation();
-  }
 
+  const buttonClassName = `popup__button ${
+    !isValid ? "popup__button_disabled" : ""
+  }`;
   return (
     <div className={popupClassName}>
       <div className={containerClassName}>
@@ -45,7 +44,7 @@ function PopupWithForm({
           onSubmit={onSubmit}
         >
           {children}
-          <button type='submit' className='popup__button'>
+          <button type='submit' className={buttonClassName} disabled={!isValid}>
             {buttonText}
           </button>
         </form>
