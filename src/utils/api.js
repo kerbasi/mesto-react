@@ -4,6 +4,12 @@
     this._headers = headers;
   }
 
+  _request(endPoint, options) {
+    return fetch(`${this._baseUrl + endPoint}`, options).then((res) =>
+      this._getResponseData(res)
+    );
+  }
+
   _getResponseData(res) {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`);
@@ -12,58 +18,54 @@
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}cards`, { headers: this._headers }).then(
-      (res) => this._getResponseData(res)
-    );
+    return this._request("cards", { headers: this._headers });
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}users/me`, { headers: this._headers }).then(
-      (res) => this._getResponseData(res)
-    );
+    return this._request("users/me", { headers: this._headers });
   }
 
   setUserInfo({ title, data }) {
-    return fetch(`${this._baseUrl}users/me`, {
+    return this._request("users/me", {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: title,
         about: data,
       }),
-    }).then((res) => this._getResponseData(res));
+    });
   }
 
   setCard({ name, link }) {
-    return fetch(`${this._baseUrl}cards`, {
+    return this._request("cards", {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         name,
         link,
       }),
-    }).then((res) => this._getResponseData(res));
+    });
   }
 
   deleteCard(_id) {
-    return fetch(`${this._baseUrl}cards/${_id}`, {
+    return this._request(`cards/${_id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this._getResponseData(res));
+    });
   }
 
   addLike(_id) {
-    return fetch(`${this._baseUrl}cards/${_id}/likes`, {
+    return this._request(`cards/${_id}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then((res) => this._getResponseData(res));
+    });
   }
 
   removeLike(_id) {
-    return fetch(`${this._baseUrl}cards/${_id}/likes`, {
+    return this._request(`cards/${_id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this._getResponseData(res));
+    });
   }
 
   changeLikeCardStatus(_id, isLiked) {
@@ -74,13 +76,13 @@
   }
 
   editAvatar(avatar) {
-    return fetch(`${this._baseUrl}users/me/avatar`, {
+    return this._request("users/me/avatar", {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         avatar,
       }),
-    }).then((res) => this._getResponseData(res));
+    });
   }
 }
 
